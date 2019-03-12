@@ -1,0 +1,13 @@
+<app-side-menu>
+  <div class="container ">
+<h1>Markers</h1>
+<div class="container" *ngFor="let marker of markers">
+  <button class="" (click)="flyTo(marker)">{{ marker.properties.message }}</button>
+  <button (click)="removeMarker(marker)">Delete</button>
+</div>
+<div class="">
+<input type="text" [(ngModel)]="message" placeholder="your message...">
+<div class="map" id="map"  style="width: 400px; height: 300px;"></div>
+</div>
+</div>
+</app-side-menu>

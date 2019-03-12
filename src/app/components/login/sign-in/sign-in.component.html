@@ -1,0 +1,13 @@
+<!-- Start: Login Form Clean -->
+<div class="login-clean">
+  <form>
+      <h2 class="sr-only">Login Form</h2>
+      <div class="illustration"><img src="./assets/images/flor.png" style="width: 120px;height: 150px;" alt="Logo"></div>
+      <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" #userName required></div>
+      <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" #userPassword required></div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary btn-block" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+        <button class="btn btn-primary btn-block"  (click)="authService.GoogleAuth()">Log In with Google</button></div>
+      <a class="forgot" routerLink="/forgot-password">Forgot your email or password?</a><a  routerLink="/register-user" class="forgot">
+        <br>Don't have an account?&nbsp;Sign Up<br><br></a></form>
+</div>

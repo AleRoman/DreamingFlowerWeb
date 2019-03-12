@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thank You for Registering<br></h4>
+
+        
+      <div class="formGroup" *ngIf="authService.userData as user">
+          <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
+          <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+        </div>
+        <p class="card-text" (click)="authService.SendVerificationMail()">Resent Verification Email</p>
+        <button class="btn btn-primary" type="button" routerLink="/sign-in">Go back to?&nbsp;Sign in<br></button></div>
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>

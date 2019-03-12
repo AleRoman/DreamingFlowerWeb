@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidenav">
+        <div class="sidebar-header">
+            <h3>Dreaming
+            Flowers</h3>
+            <strong>DF</strong>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="">
+                <a  routerLink=""  data-toggle="collapse" >
+                    <i class="glyphicon glyphicon-home"></i>
+                    Dashboard
+                </a>
+          
+            </li>
+            <li>
+                <a routerLink="/solicitudes" >
+                    <i class="glyphicon glyphicon-briefcase"></i>
+                    Solicitudes
+                </a>
+                <a routerLink="/pedidos"data-toggle="collapse" >
+                    <i class="glyphicon glyphicon-duplicate"></i>
+                    Pedidos
+                </a>
+               
+            </li>
+            <li>
+                <a routerLink="/completados">
+                    <i class="glyphicon glyphicon-link"></i>
+                    Completados
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-paperclip"></i>
+                    Calificacion
+                </a>
+            </li>
+            <li>
+                <a (click)="authService.SignOut()" >
+                    <i class="glyphicon glyphicon-send"></i>
+                      Log Out
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+
+      <ng-content></ng-content>
+    </div>
+</div>
