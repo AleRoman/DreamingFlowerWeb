@@ -15,6 +15,7 @@ import { SolicitudesComponent } from './components/dashboard/solicitudes/solicit
 import { PedidosComponent } from './components/dashboard/pedidos/pedidos.component';
 import { CompletadosComponent } from './components/dashboard/completados/completados.component';
 import { MapBoxComponent } from './components/dashboard/map-box/map-box.component';
+import { CalificacionesComponent } from './components/dashboard/calificaciones/calificaciones.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'solicitudes', component: SolicitudesComponent, canActivate: [AuthGuard]},
   {path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuard]},
   {path: 'completados', component: CompletadosComponent, canActivate: [AuthGuard]},
+  {path: 'calificaciones', component: CalificacionesComponent, canActivate: [AuthGuard]},
   {path: 'map', component: MapBoxComponent, canActivate: [AuthGuard]}
 ];
 

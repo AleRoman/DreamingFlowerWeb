@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { CalificacionesComponent } from './components/dashboard/calificaciones/calificaciones.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     PedidosComponent,
     CompletadosComponent,
     MapBoxComponent,
+    CalificacionesComponent,
   ],
   imports: [
     BrowserModule,

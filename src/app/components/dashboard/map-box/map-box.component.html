@@ -1,13 +1,26 @@
 <app-side-menu>
-  <div class="container ">
-<h1>Markers</h1>
-<div class="container" *ngFor="let marker of markers">
-  <button class="" (click)="flyTo(marker)">{{ marker.properties.message }}</button>
-  <button (click)="removeMarker(marker)">Delete</button>
-</div>
-<div class="">
-<input type="text" [(ngModel)]="message" placeholder="your message...">
-<div class="map" id="map"  style="width: 400px; height: 300px;"></div>
-</div>
-</div>
+  <h1 class="text-center mt-5">AGREGA TU FLORERÍA</h1>
+  <div class="col-sm-3 float-left">
+    <h2 class="mt-5 mb-4">FLORERIAS</h2>
+    <div *ngFor="let marker of markers">
+      <button class="btn btn-outline-info mr-4 mb-2" (click)="flyTo(marker.geometry.coordinates)">{{ marker.properties.message }}</button>
+      <button class="btn btn-danger mb-2 " (click)="removeMarker(marker)"><i class="fas fa-minus-circle"></i></button>
+    </div>
+  </div>
+
+  <div class="col-sm-5 float-left">
+    <div class="map mt-5" id="map" style="width: 400px; height: 300px;"></div>
+  </div>
+  <div class="col-sm-3 float-left mt-5">
+    <input type="text" [(ngModel)]="message" placeholder="Nombre de tu Floreria">
+    <div class="card mt-4">
+        <div class="card-header">Agrega tu Florería</div>
+        <div class="card-body">
+          <p>Ingresa el nombre de tu Florería y da click en el mapa para agregar tu ubicación</p><br>
+          <p>Una vez agregada podrás visualizar el nombre de tu florería del lado izquierdo</p>
+        </div> 
+
+      </div>
+  </div>
+
 </app-side-menu>

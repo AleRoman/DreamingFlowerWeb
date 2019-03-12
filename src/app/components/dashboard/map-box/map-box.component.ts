@@ -19,7 +19,7 @@ export class MapBoxComponent implements OnInit {
  style = 'mapbox://styles/mapbox/outdoors-v9';
  lat = 37.75;
  lng = -122.41;
- message = 'Hello World!';
+ message = 'Florería';
 
  // data
  source: any;
@@ -50,6 +50,7 @@ export class MapBoxComponent implements OnInit {
    console.log(this.markers);
    console.log(this.userId);
    this.initializeMap();
+   this.idUser();
  }
 
  private initializeMap() {
@@ -84,8 +85,14 @@ export class MapBoxComponent implements OnInit {
    //// Add Marker on Click
    this.map.on('click', (event) => {
      const coordinates = [event.lngLat.lng, event.lngLat.lat];
-     const newMarker   = new GeoJson(coordinates, { message: this.message });
-     this.mapService.createMarker(newMarker);
+     const newMarker   = new GeoJson(coordinates, this.userId , { message: this.message });
+     this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+      console.log(this.userId);
+      this.mapService.createMarker(newMarker);
+    });
    });
 
 
@@ -136,8 +143,8 @@ export class MapBoxComponent implements OnInit {
     if (user) {
       this.userId = user.uid;
     }
-    console.log(this.userId);
   });
+  console.log(this.userId);
   return this.userId;
  }
  /// Helpers
@@ -146,9 +153,10 @@ export class MapBoxComponent implements OnInit {
    this.mapService.removeMarker(marker.$key);
  }
 
- flyTo(data: GeoJson) {
+ flyTo(lon: number[]) {
+   console.log(lon);
    this.map.flyTo({
-     center: data.geometry.coordinates
+     center: lon
    });
  }
 }
