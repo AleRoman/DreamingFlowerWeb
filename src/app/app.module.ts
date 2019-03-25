@@ -27,6 +27,8 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CalificacionesComponent } from './components/dashboard/calificaciones/calificaciones.component';
 
+import {HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { CalificacionesComponent } from './components/dashboard/calificaciones/c
     MatIconModule,
     MatListModule,
     AngularFireDatabaseModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

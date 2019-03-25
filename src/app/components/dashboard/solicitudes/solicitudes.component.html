@@ -12,12 +12,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>5 Girasoles</td>
-          <td>$ 50.00 MXN</td>
-          <td><button class="btn btn-outline-success mr-2">Aceptar</button>
-          <button class="btn btn-outline-danger">Rechazar</button></td>
+        <tr *ngFor="let solicitud of solicitudes; let i=index">
+          <td>{{i}}</td>
+          <td>{{solicitud.data.arregloFloral}}</td>
+          <td>{{solicitud.data.total}}</td>
+          <td><button class="btn btn-outline-success mr-2" (click)="sendNotification()">Aceptar</button>
+          <button class="btn btn-outline-danger" disabled >Rechazar</button></td>
         </tr>
       
       </tbody>

@@ -28,13 +28,6 @@ export class MapBoxComponent implements OnInit {
  constructor(private mapService: MapService,
   private db: AngularFireDatabase,
   private afAuth: AngularFireAuth) {
-
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userId = user.uid;
-      }
-      console.log(this.userId);
-    });
  }
 
  ngOnInit() {
@@ -47,10 +40,9 @@ export class MapBoxComponent implements OnInit {
       this.markers.push(a as GeoJson);
     });
   });
-   console.log(this.markers);
-   console.log(this.userId);
+
    this.initializeMap();
-   this.idUser();
+
  }
 
  private initializeMap() {
@@ -85,13 +77,10 @@ export class MapBoxComponent implements OnInit {
    //// Add Marker on Click
    this.map.on('click', (event) => {
      const coordinates = [event.lngLat.lng, event.lngLat.lat];
-     const newMarker   = new GeoJson(coordinates, this.userId , { message: this.message });
      this.afAuth.authState.subscribe(user => {
-      if (user) {
         this.userId = user.uid;
-      }
-      console.log(this.userId);
-      this.mapService.createMarker(newMarker);
+        const newMarker   = new GeoJson(coordinates, this.userId , { message: this.message });
+        this.mapService.createMarker(newMarker);
     });
    });
 
@@ -136,17 +125,6 @@ export class MapBoxComponent implements OnInit {
 
  }
 
-// Get user id
-
- idUser(): string {
-  this.afAuth.authState.subscribe(user => {
-    if (user) {
-      this.userId = user.uid;
-    }
-  });
-  console.log(this.userId);
-  return this.userId;
- }
  /// Helpers
 
  removeMarker(marker) {
@@ -159,4 +137,5 @@ export class MapBoxComponent implements OnInit {
      center: lon
    });
  }
+
 }
