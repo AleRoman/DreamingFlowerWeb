@@ -3,7 +3,7 @@
   <div class="col-sm-3 float-left">
     <h2 class="mt-5 mb-4">FLORERIAS</h2>
     <div *ngFor="let marker of markers">
-      <button class="btn btn-outline-info mr-4 mb-2" (click)="flyTo(marker.geometry.coordinates)">{{ marker.properties.message }}</button>
+      <button class="btn btn-outline-info mr-4 mb-2" (click)="flyTo(marker.geometry.coordinates)">{{ marker.nombre }}</button>
       <button class="btn btn-danger mb-2 " (click)="removeMarker(marker)"><i class="fas fa-minus-circle"></i></button>
     </div>
   </div>

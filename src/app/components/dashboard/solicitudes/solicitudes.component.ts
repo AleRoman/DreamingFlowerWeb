@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http/';
 import { HttpHeaders } from '@angular/common/http';
 import { SolicitudesService } from 'src/app/shared/services/solicitudes.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-solicitudes',
@@ -10,24 +11,32 @@ import { SolicitudesService } from 'src/app/shared/services/solicitudes.service'
 })
 export class SolicitudesComponent implements OnInit {
   public solicitudes = [];
+  private userId; string;
   constructor(
     private http: HttpClient,
-    private sService: SolicitudesService
-    ) { }
+    private sService: SolicitudesService,
+    private afAuth: AngularFireAuth
+  ) { }
 
   ngOnInit() {
-    this.sService.getSolicitudes().subscribe((solicitudessSnapshot) => {
-      this.solicitudes = [];
-      solicitudessSnapshot.forEach((solicitudData: any) => {
-        this.solicitudes.push({
-          id: solicitudData.payload.doc.id,
-          data: solicitudData.payload.doc.data()
+    this.afAuth.authState.subscribe(user => {
+      this.userId = user.uid;
+      this.sService.getSolicitudes(this.userId).subscribe((solicitudessSnapshot) => {
+        this.solicitudes = [];
+        solicitudessSnapshot.forEach((solicitudData: any) => {
+          this.solicitudes.push({
+            id: solicitudData.payload.doc.id,
+            data: solicitudData.payload.doc.data()
+          });
         });
       });
+
+
     });
+
   }
 
-  sendNotification() {
+  sendNotification(token, id) {
     const body = {
       'notification': {
         'title': 'Pedido aceptado',
@@ -40,7 +49,7 @@ export class SolicitudesComponent implements OnInit {
         'param1': 'value1',
         'param2': 'value2'
       },
-      'to': '/topics/all',
+      'to': token,
       'priority': 'high',
       'restricted_package_name': ''
     };
@@ -51,7 +60,14 @@ export class SolicitudesComponent implements OnInit {
     })
       .subscribe();
 
-      console.log('lo hice');
+    console.log('lo hice');
+    this.updateSolicitud(id);
   }
+
+  updateSolicitud(documentId: string) {
+    console.log('lo hice también');
+    this.sService.updateSolicitud(documentId);
+  }
+
 
 }

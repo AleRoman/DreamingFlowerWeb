@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { SolicitudesService } from 'src/app/shared/services/solicitudes.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-pedidos',
@@ -7,15 +9,32 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent implements OnInit {
-
+  public pedidos = [];
+  public userId: string;
   constructor(
     private http: HttpClient,
+    private sService: SolicitudesService,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
+    this.afAuth.authState.subscribe(user => {
+      this.userId = user.uid;
+      this.sService.getPedidos(user.uid).subscribe((pedidossSnapshot) => {
+        this.pedidos = [];
+        pedidossSnapshot.forEach((pedidosData: any) => {
+          this.pedidos.push({
+            id: pedidosData.payload.doc.id,
+            data: pedidosData.payload.doc.data()
+          });
+        });
+        console.log(this.pedidos);
+      });
+    });
+
   }
 
-  sendNotification() {
+  sendNotification(token, id) {
     const body = {
       'notification': {
         'title': 'Tu pedido ha sido entregado',
@@ -28,7 +47,7 @@ export class PedidosComponent implements OnInit {
         'param1': 'value1',
         'param2': 'value2'
       },
-      'to': '/topics/all',
+      'to': token,
       'priority': 'high',
       'restricted_package_name': ''
     };
@@ -39,7 +58,13 @@ export class PedidosComponent implements OnInit {
     })
       .subscribe();
 
-      console.log('lo hice');
+    console.log('lo hice');
+    this.updatePedido(id);
+  }
+
+  updatePedido(documentId: string) {
+    console.log('lo hice también');
+    this.sService.updatePedido(documentId);
   }
 
 }

@@ -13,11 +13,17 @@
       </thead>
       <tbody>
         <tr *ngFor="let solicitud of solicitudes; let i=index">
-          <td>{{i}}</td>
-          <td>{{solicitud.data.arregloFloral}}</td>
+          <td>{{i+1}}</td>
+          <div *ngFor="let descripcion of solicitud.data.arregloFloral" class="text-center">
+          <td  class="text-center"><b>Flor: </b>{{descripcion.nombreF}}  <b>*</b>{{descripcion.count}}</td>
+        </div>
           <td>{{solicitud.data.total}}</td>
-          <td><button class="btn btn-outline-success mr-2" (click)="sendNotification()">Aceptar</button>
-          <button class="btn btn-outline-danger" disabled >Rechazar</button></td>
+          <td><button *ngIf="!solicitud.data.status" class="btn btn-outline-success mr-2" (click)="sendNotification(solicitud.data.token, solicitud.id)">Aceptar</button>
+          <button *ngIf="!solicitud.data.status" class="btn btn-outline-danger" disabled >Rechazar</button>
+          <div *ngIf="solicitud.data.status" class="alert alert-info" role="alert">
+            ACEPTADO
+          </div></td>
+
         </tr>
       
       </tbody>

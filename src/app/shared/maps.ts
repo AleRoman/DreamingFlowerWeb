@@ -2,32 +2,29 @@ export class Maps {
 
 }
 
-export interface IGeometry {
-    type: string;
-    coordinates: number[];
-}
+
 
 export interface IGeoJson {
-    type: string;
-    geometry: IGeometry;
-    properties?: any;
-    $key?: string;
+  type: string;
+  $key?: string;
 }
 
 export class GeoJson implements IGeoJson {
-  type = 'Feature';
-  geometry: IGeometry;
+  type = 'Florería';
   userId: string;
-  constructor(coordinates, userId: string, public properties?) {
-    this.geometry = {
-      type: 'Point',
-      coordinates: coordinates
-    };
+  lat: number;
+  long: number;
+  nombre: string;
+  constructor(lat, long, userId: string, nombre) {
+    this.lat = lat;
+    this.long = long;
     this.userId = userId;
+    this.nombre = nombre;
   }
 }
 
 export class FeatureCollection {
   type = 'FeatureCollection';
-  constructor(public features: Array<GeoJson>) {}
+  constructor(public features: Array<GeoJson>) { }
 }
+
